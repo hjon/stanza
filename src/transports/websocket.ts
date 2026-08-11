@@ -99,6 +99,11 @@ export default class WSConnection extends Duplex implements Transport {
         });
 
         this.socket = new WebSocket(opts.url!, 'xmpp');
+        if (typeof (this.socket as any).on === 'function') {
+            (this.socket as any).on('upgrade', (response: any) => {
+                this.client.emit('hjon:upgrade' as any, response.headers);
+            });
+        }
         this.socket.onopen = () => {
             this.emit('connect');
             this.sm.started = false;

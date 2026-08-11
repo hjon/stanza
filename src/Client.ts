@@ -246,7 +246,8 @@ export default class Client extends EventEmitter {
                 this.emit(iqEvent as any, iq);
             } else if (iqType === 'result') {
                 if (iq.id) {
-                    this.emit(('iq:result:id:' + iq.id) as any, iq);
+                    // this.emit(('iq:result:id:' + iq.id) as any, iq);
+                    this.emit(('hjon:iq:result') as any, iq);
                 }
             }
         });
