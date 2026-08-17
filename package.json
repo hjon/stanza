@@ -42,6 +42,7 @@
     },
     "scripts": {
         "build": "tsx scripts/build",
+        "build-local": "tsx scripts/build-local",
         "build:docs": "tsx scripts/build-docs",
         "clean": "rm -rf dist",
         "compile": "tsc -p .",
