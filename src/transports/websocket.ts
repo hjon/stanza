@@ -19,6 +19,7 @@ export default class WSConnection extends Duplex implements Transport {
     private parser?: StreamParser;
     private socket?: WebSocket;
     private disconnectTimeoutId?: ReturnType<typeof setTimeout>;
+    private boundSocketErrorHandler?: (error: any) => void;
 
     constructor(client: Agent, sm: StreamManagement, stanzas: Registry) {
         super({ objectMode: true });
@@ -117,13 +118,28 @@ export default class WSConnection extends Duplex implements Transport {
                 this.parser.write(data);
             }
         };
+        this.boundSocketErrorHandler = this.handleSocketError.bind(this);
         this.socket.onclose = () => {
+            if (this.socket && this.boundSocketErrorHandler) {
+                this.socket.off('socketerror', this.boundSocketErrorHandler);
+            }
             this.push(null);
         };
         this.socket.onerror = err => {
+            if (this.socket && this.boundSocketErrorHandler) {
+                this.socket.off('socketerror', this.boundSocketErrorHandler);
+            }
             console.error(err);
             this.push(null);
         };
+        this.socket.on('socketerror', this.boundSocketErrorHandler);
+    }
+
+    handleSocketError(error: any) {
+        this.client.emit('hjon:socketerror' as any, error);
+        if (error.code === 'ECONNRESET') {
+            this.client.emit('hjon:socketerror:reset' as any, error);
+        }
     }
 
     public disconnect(clean = true): void {
