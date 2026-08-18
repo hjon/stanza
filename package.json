@@ -1,60 +1,41 @@
 {
-    "name": "stanza",
-    "description": "Modern XMPP in the browser, with a JSON API",
-    "version": "12.22.1",
-    "author": "Lance Stout <lancestout@gmail.com>",
-    "bugs": "https://github.com/legastero/stanza/issues",
-    "contributors": [
-        "Philipp Hancke <fippo@andyet.net>",
-        "Steven Lloyd Watkin <lloyd@evilprofessor.co.uk>"
-    ],
-    "dependencies": {
-        "@types/node": "^22.0.0",
-        "@types/punycode": "^2.1.0",
-        "@types/ws": "^8.18.1",
-        "punycode": "^2.1.1",
-        "sdp": "^3.0.2",
-        "ws": "github:hjon/ws#socketError"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "^2.3.10",
-        "@vitest/coverage-v8": "^4.0.16",
-        "tsx": "^4.7.0",
-        "typescript": "^5.9.3",
-        "vitest": "^4.0.16",
-        "webpack": "^5.104.1",
-        "webpack-bundle-analyzer": "^5.1.0",
-        "webpack-cli": "^6.0.1"
-    },
-    "homepage": "https://stanzajs.org",
-    "keywords": [
-        "jingle",
-        "stanza",
-        "stanza.io",
-        "xmpp"
-    ],
-    "license": "MIT",
-    "main": "./dist/cjs/index.js",
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/legastero/stanza.git"
-    },
-    "scripts": {
-        "build": "tsx scripts/build",
-        "build-local": "tsx scripts/build-local",
-        "build:docs": "tsx scripts/build-docs",
-        "clean": "rm -rf dist",
-        "compile": "tsc -p .",
-        "compile:module": "tsc -p . --outDir ./dist/es --target es2015 --module es2015",
-        "compile:webpack": "webpack --mode production",
-        "license-check": "npx license-checker --production --excludePrivatePackages --summary",
-        "lint": "biome check .",
-        "lint:fix": "biome check --write .",
-        "format": "biome format --write .",
-        "test": "vitest run",
-        "test:watch": "vitest",
-        "test:coverage": "vitest run --coverage",
-        "validate": "npm ls"
-    }
+  "name": "stanza",
+  "description": "Modern XMPP in the browser, with a JSON API",
+  "version": "12.22.1",
+  "author": "Lance Stout <lancestout@gmail.com>",
+  "bugs": "https://github.com/legastero/stanza/issues",
+  "contributors": [
+    "Philipp Hancke <fippo@andyet.net>",
+    "Steven Lloyd Watkin <lloyd@evilprofessor.co.uk>"
+  ],
+  "dependencies": {
+    "@types/node": "^22.0.0",
+    "@types/punycode": "^2.1.0",
+    "@types/ws": "^8.18.1",
+    "punycode": "^2.1.1",
+    "sdp": "^3.0.2",
+    "ws": "github:hjon/ws#socketError"
+  },
+  "homepage": "https://stanzajs.org",
+  "keywords": [
+    "jingle",
+    "stanza",
+    "stanza.io",
+    "xmpp"
+  ],
+  "license": "MIT",
+  "main": "./index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/legastero/stanza.git"
+  },
+  "browser": {
+    "./platform": "./platform/browser/index.js"
+  },
+  "react-native": {
+    "./platform": "./platform/react-native/index.js"
+  },
+  "sideEffects": false,
+  "typings": "./index"
 }

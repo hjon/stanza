@@ -1,3 +1,0 @@
-<iq type="set" id="juliet1">
-    <query xmlns="urn:xmpp:mam:2" queryid="f27" />
-</iq>
